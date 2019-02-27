@@ -1,4 +1,5 @@
 #include<iostream>
+#include<math.h>
 using namespace std;
 
 class Node
@@ -24,7 +25,7 @@ public:
   Polynomial()
   {
     H=new Node();
-    H->coeff=-1;
+    H->coeff=-1.0;
     H->next=H;
   }
   void display()
@@ -43,6 +44,24 @@ public:
       current=current->next;
     }
     cout<<"\n\n";
+  }
+  void evaluate()
+  {
+    Node* current=H;
+    current=current->next;
+
+    int x=0;
+    cout<<"Enter value of X:";
+    cin>>x;
+    double sum;
+    while(current!=H)
+    {
+      sum+=current->coeff*pow(x,current->exp);
+      current=current->next;
+    }
+    cout<<"Result:"<<sum;
+    cout<<"\n";
+
   }
   void create()
   {
@@ -74,6 +93,7 @@ int main()
 
   p1->create();
   p1->display();
+  p1->evaluate();
 
   return 0;
 }
