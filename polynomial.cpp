@@ -5,16 +5,15 @@ class Node
 {
   int exp;
   double coeff;
-  Node* left;
-  Node* right;
+  Node* next;
+
 
 public:
   Node()
   {
     exp=0;
     coeff=0.0;
-    left=NULL;
-    right=NULL;
+    next=NULL;
   }
 }
 class Polynomial
@@ -38,14 +37,23 @@ public:
 
     for(int i=0;i<n;i++)
     {
-        
+        Node* nn=new Node();
+        cout<<"Enter coefficient:";
+        cin>>nn->coeff;
+        cout<<"Enter exponent:";
+        cin>>nn->exp;
+        cout<<"------------\n";
+        H->next=nn;
+        nn->next=NULL;
     }
   }
 
 }
 int main()
 {
+  Polynomial p1=new Polynomial();
 
+  p1.
 
   return 0;
 }
