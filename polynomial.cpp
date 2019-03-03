@@ -63,6 +63,10 @@ public:
     cout<<"\n";
 
   }
+  void add()
+  {
+
+  }
   void create()
   {
     int n=0;
@@ -90,7 +94,7 @@ public:
 int main()
 {
   Polynomial* p1=new Polynomial();
-
+  Polynomial* p2=new Polynomial();
   p1->create();
   p1->display();
   p1->evaluate();
