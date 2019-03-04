@@ -168,6 +168,7 @@ int main()
   Polynomial* p2=new Polynomial();
   Polynomial* p3=new Polynomial();
   int nopoly,choice;
+  
 
   do
   {
