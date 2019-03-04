@@ -1,7 +1,7 @@
 #include<iostream>
 #include<math.h>
 using namespace std;
-
+//added comment
 class Node
 {
   friend class Polynomial;
