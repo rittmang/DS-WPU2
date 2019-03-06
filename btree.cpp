@@ -25,7 +25,7 @@ public:
       root=NULL;
       //root=new Node();
     }
-    void create_tree_NR(Node* root)
+    Node* create_tree_NR(Node* root)
     {
       char choice;
       do {
@@ -71,12 +71,13 @@ public:
                 temp=temp->right;
             }
           }
+          root=temp;
         }
         cout<<"Continue? Y | N\n";
         cin>>choice;
       } while(choice=='Y');
 
-
+      return root;
     }
     void create_tree_rec(Node* root)
     {
@@ -108,11 +109,60 @@ public:
       }
 
     }
+    void preorder_traversal(Node* root)
+    {
+      if(root!=NULL)
+      {
+        cout<<root->data<<"\t";
+        preorder_traversal(root->left);
+        preorder_traversal(root->right);
+      }
+    }
+    void inorder_traversal(Node* root)
+    {
+      if(root!=NULL)
+      {
+        inorder_traversal(root->left);
+        cout<<root->data<<"\t";
+        inorder_traversal(root->right);
+      }
+    }
+    void postorder_traversal(Node* root)
+    {
+      if(root!=NULL)
+      {
+        postorder_traversal(root->left);
+        postorder_traversal(root->right);
+        cout<<root->data<<"\t";
+
+      }
+    }
 };
 int main()
 {
   BinaryTree* b=new BinaryTree();
-  b->create_tree_NR(b->root);
 
-  //b->create_tree_rec(b->root);
+
+  int choice;
+  do {
+    cout<<"\n___________________________________";
+    cout<<"\n0. Exit\n1. Create Tree (Non Recursive)\n2. Display Preorder\n3. Display Inorder\n4. Display Postorder"<<endl;
+    cin>>choice;
+    switch(choice)
+    {
+      case 1:b->root=b->create_tree_NR(b->root);
+             break;
+
+      case 2:b->preorder_traversal(b->root);
+            break;
+
+      case 3:b->inorder_traversal(b->root);
+            break;
+
+      case 4:b->postorder_traversal(b->root);
+            break;
+    }
+  } while(choice!=0);
+
+  return 0;
 }
