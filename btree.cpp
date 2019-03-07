@@ -1,3 +1,4 @@
+#include<stack>
 #include<iostream>
 using namespace std;
 
@@ -79,8 +80,17 @@ public:
 
       return root;
     }
-    void create_tree_rec(Node* root)
+    Node* create_tree_rec(Node* root)
     {
+      if(root==NULL)
+      {
+        root=new Node();
+        cout<<"\nEnter root data:";
+        cin>>root->data;
+        root->left=root->right=NULL;
+        create_tree_rec(root);
+      }
+      else{
       char ch;
       cout<<"\nL or R of "<<root->data<<"?";
       cin>>ch;
@@ -107,7 +117,8 @@ public:
 
         create_tree_rec(root->right);
       }
-
+    }
+      return root;
     }
     void preorder_traversal(Node* root)
     {
@@ -116,6 +127,28 @@ public:
         cout<<root->data<<"\t";
         preorder_traversal(root->left);
         preorder_traversal(root->right);
+      }
+    }
+    void preorder_traversal_NR(Node* root)
+    {
+      stack <Node*> s;
+      Node* temp=root;
+      while(1)
+      {
+        while(temp!=NULL)
+        {
+          cout<<temp->data<<"\t";
+          s.push(temp);
+          temp=temp->left;
+        }
+        if(s.empty())break;
+
+        if(!s.empty())
+        {
+          temp=s.top();
+          s.pop();
+        }
+        temp=temp->right;
       }
     }
     void inorder_traversal(Node* root)
@@ -137,29 +170,37 @@ public:
 
       }
     }
+
 };
 int main()
 {
   BinaryTree* b=new BinaryTree();
+  //stack <int> s;
 
 
   int choice;
   do {
     cout<<"\n___________________________________";
-    cout<<"\n0. Exit\n1. Create Tree (Non Recursive)\n2. Display Preorder\n3. Display Inorder\n4. Display Postorder"<<endl;
+    cout<<"\n0. Exit\n1. Create Tree (Non Recursive)\n2. Create Tree (Recursive) (Whacko)\n3. Display Preorder (Recursive)\n4. Display Preorder (Non Recursive)\n5. Display Inorder (Recursive)\n6. Display Inorder (Non Recursive)\n7. Display Postorder (Recursive)\n8. Display Postorder (Non Recursive)"<<endl;
     cin>>choice;
     switch(choice)
     {
       case 1:b->root=b->create_tree_NR(b->root);
              break;
 
-      case 2:b->preorder_traversal(b->root);
+      case 2: b->root=b->create_tree_rec(b->root);
+              break;
+
+      case 3:b->preorder_traversal(b->root);
             break;
 
-      case 3:b->inorder_traversal(b->root);
+      case 4:b->preorder_traversal_NR(b->root);
+             break;
+
+      case 5:b->inorder_traversal(b->root);
             break;
 
-      case 4:b->postorder_traversal(b->root);
+      case 7:b->postorder_traversal(b->root);
             break;
     }
   } while(choice!=0);
