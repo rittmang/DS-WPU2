@@ -97,7 +97,7 @@ public:
       }
       else{
       char ch;
-      cout<<"\nL or R of "<<root->data<<"?";
+      cout<<"\nL or R or U of "<<root->data<<"?";
       cin>>ch;
       if(ch=='L')
       {
@@ -109,6 +109,9 @@ public:
           root->left=curr;
 
         create_tree_rec(root->left);
+
+        if(root->right!=NULL)
+          create_tree_rec(root->right);
       }
 
       if(ch=='R')
@@ -121,6 +124,12 @@ public:
           root->right=curr;
 
         create_tree_rec(root->right);
+        if(root->left!=NULL)
+          create_tree_rec(root->left);
+      }
+      if(ch=='U')
+      {
+        create_tree_rec(root);
       }
     }
       return root;
