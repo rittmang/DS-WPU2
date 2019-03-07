@@ -1,7 +1,14 @@
+/*
+Name: Ritom Gupta
+Class: S.Y B.Tech CSE - Panel 2
+Roll: 203460
+Subject: DS-II
+*/
+
 #include<iostream>
 #include<math.h>
 using namespace std;
-//added comment
+
 class Node
 {
   friend class Polynomial;
@@ -114,9 +121,6 @@ public:
   			}
   		}
 
-
-
-
   	}
   	while(current1!=this->H)
   	{
@@ -168,7 +172,6 @@ int main()
   Polynomial* p2=new Polynomial();
   Polynomial* p3=new Polynomial();
   int nopoly,choice;
-  
 
   do
   {
