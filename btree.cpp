@@ -21,11 +21,14 @@ class BinaryTree
 {
 public:
     Node* root;
+
     BinaryTree()
     {
       root=NULL;
       //root=new Node();
     }
+
+
     Node* create_tree_NR(Node* root)
     {
       char choice;
@@ -80,6 +83,8 @@ public:
 
       return root;
     }
+
+
     Node* create_tree_rec(Node* root)
     {
       if(root==NULL)
@@ -120,6 +125,8 @@ public:
     }
       return root;
     }
+
+
     void preorder_traversal(Node* root)
     {
       if(root!=NULL)
@@ -129,6 +136,8 @@ public:
         preorder_traversal(root->right);
       }
     }
+
+
     void preorder_traversal_NR(Node* root)
     {
       stack <Node*> s;
@@ -151,6 +160,7 @@ public:
         temp=temp->right;
       }
     }
+
     void inorder_traversal(Node* root)
     {
       if(root!=NULL)
@@ -158,6 +168,30 @@ public:
         inorder_traversal(root->left);
         cout<<root->data<<"\t";
         inorder_traversal(root->right);
+      }
+    }
+
+    void inorder_traversal_NR(Node* root)//only print statement location changed
+    {
+      stack <Node*> s;
+      Node* temp=root;
+      while(1)
+      {
+        while(temp!=NULL)
+        {
+          //cout<<temp->data<<"\t";
+          s.push(temp);
+          temp=temp->left;
+        }
+        if(s.empty())break;
+
+        if(!s.empty())
+        {
+          temp=s.top();
+          cout<<temp->data<<"\t";
+          s.pop();
+        }
+        temp=temp->right;
       }
     }
     void postorder_traversal(Node* root)
@@ -168,6 +202,36 @@ public:
         postorder_traversal(root->right);
         cout<<root->data<<"\t";
 
+      }
+    }
+    void postorder_traversal_NR(Node* root)
+    {
+      stack <Node*> s;
+      Node* temp=root;
+      while(1)
+      {
+        while(temp!=NULL)
+        {
+          //cout<<temp->data<<"\t";
+          s.push(temp);
+          temp=temp->left;
+        }
+        if(s.top()->right==NULL)
+        {
+          temp=s.top();
+          s.pop();
+          cout<<temp->data<<"\t";
+        }
+
+        while(!s.empty() && s.top()->right == temp)
+        {
+          temp=s.top();
+          cout<<temp->data<<"\t";
+          s.pop();
+        }
+        if(s.empty())break;
+
+        temp=s.top()->right;
       }
     }
 
@@ -188,20 +252,26 @@ int main()
       case 1:b->root=b->create_tree_NR(b->root);
              break;
 
-      case 2: b->root=b->create_tree_rec(b->root);
-              break;
+      case 2:b->root=b->create_tree_rec(b->root);
+             break;
 
       case 3:b->preorder_traversal(b->root);
-            break;
+             break;
 
       case 4:b->preorder_traversal_NR(b->root);
              break;
 
       case 5:b->inorder_traversal(b->root);
-            break;
+             break;
+
+      case 6:b->inorder_traversal_NR(b->root);
+             break;
 
       case 7:b->postorder_traversal(b->root);
-            break;
+             break;
+
+      case 8:b->postorder_traversal_NR(b->root);
+             break;
     }
   } while(choice!=0);
 
