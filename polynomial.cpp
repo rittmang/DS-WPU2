@@ -179,7 +179,7 @@ int main()
   	cin>>nopoly;
   	if(nopoly==0)break;
 
-  	cout<<"******MENU*******\n1. Create Polynomial\n2. Display Polynomial\n3. Add Polynomial(defunct)\n4. Evaluate Polynomial\n";
+  	cout<<"******MENU*******\n1. Create Polynomial\n2. Display Polynomial\n3. Add Polynomial\n4. Evaluate Polynomial\n";
   	cin>>choice;
 
   	if(nopoly==1)
