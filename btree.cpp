@@ -75,10 +75,12 @@ public:
                 temp=temp->right;
             }
           }
-          root=temp;
+          //root=temp;
+          temp=root;
         }
         cout<<"Continue? Y | N\n";
         cin>>choice;
+
       } while(choice=='Y');
 
       return root;
@@ -243,6 +245,50 @@ public:
         temp=s.top()->right;
       }
     }
+    void erase_tree_NR(Node* root)
+    {
+      stack <Node*> s;
+      Node* temp=root;
+      while(1)
+      {
+        while(temp!=NULL)
+        {
+          //cout<<temp->data<<"\t";
+          s.push(temp);
+          temp=temp->left;
+        }
+        if(s.top()->right==NULL)
+        {
+
+          temp=s.top();
+          Node* current=temp;
+          s.pop();
+
+          cout<<temp->data<<"\t";
+          delete current;
+        }
+
+        while(!s.empty() && s.top()->right == temp)
+        {
+          temp=s.top();
+          Node* current=temp;
+          cout<<temp->data<<"\t";
+          s.pop();
+          delete current;
+        }
+        if(s.empty())break;
+
+        temp=s.top()->right;
+      }
+    }
+    void erase_tree(Node* root)
+    {
+      if(root==NULL)return;
+      erase_tree(root->left);
+      erase_tree(root->right);
+      cout<<"Deleting"<<root->data<<endl;
+      delete root;
+    }
 
 };
 int main()
@@ -254,7 +300,7 @@ int main()
   int choice;
   do {
     cout<<"\n___________________________________";
-    cout<<"\n0. Exit\n1. Create Tree (Non Recursive)\n2. Create Tree (Recursive) (Whacko)\n3. Display Preorder (Recursive)\n4. Display Preorder (Non Recursive)\n5. Display Inorder (Recursive)\n6. Display Inorder (Non Recursive)\n7. Display Postorder (Recursive)\n8. Display Postorder (Non Recursive)"<<endl;
+    cout<<"\n0. Exit\n1. Create Tree (Non Recursive)\n2. Create Tree (Recursive) (Whacko)\n3. Display Preorder (Recursive)\n4. Display Preorder (Non Recursive)\n5. Display Inorder (Recursive)\n6. Display Inorder (Non Recursive)\n7. Display Postorder (Recursive)\n8. Display Postorder (Non Recursive)\n9. Erase tree (Recursive)\n10. Erase tree (Non-Recursive)"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -281,6 +327,14 @@ int main()
 
       case 8:b->postorder_traversal_NR(b->root);
              break;
+
+      case 9:b->erase_tree(b->root);
+            b->root=NULL;
+            break;
+
+      case 10:b->erase_tree_NR(b->root);
+              b->root=NULL;
+              break;
     }
   } while(choice!=0);
 
