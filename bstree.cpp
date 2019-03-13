@@ -93,7 +93,45 @@ public:
 
       return root;
     }
+    Node* create_tree_rec_2(Node* root,int key)
+    {
+      if(root==NULL)
+      {
+        Node* current=new Node();
+        current->data=key;
+        current->left=current->right=NULL;
+        return current;
+      }
+      else
+      {
+        if(key < root->data)
+        {
+          Node* curr=new Node();
+          curr->data=key;
+          curr->left=curr->right=NULL;
+          if(root->left==NULL)
+          {root->left=curr;return root; }
+          root->left=create_tree_rec_2(root->left,key);
+        }
 
+        else if(key > root->data)
+        {
+          Node* curr=new Node();
+          curr->data=key;
+          curr->left=curr->right=NULL;
+          if(root->right==NULL)
+          {root->right=curr;return root;}
+
+          root->right=create_tree_rec_2(root->right,key);
+        }
+        else
+        {
+          cout<<"Cannot insert another "<<key<<endl;
+        }
+        return root;
+
+      }
+    }
 
     Node* create_tree_rec(Node* root,int key,char ch)
     {
@@ -120,12 +158,16 @@ public:
             curr->data=key;
             curr->left=curr->right=NULL;
             if(root->left==NULL)
-            {root->left=curr;}
+            {root->left=curr;
 
-             char c;
-              cout<<"Continue? Y | N";
+            char c;
+            cout<<"Continue? Y | N";
             cin>>c;
             create_tree_rec(root->left,key,c);
+            }
+            else
+            create_tree_rec(root->left,key,ch);
+
           }
 
           else if(key > root->data)
@@ -201,6 +243,7 @@ public:
 int main()
 {
   BinarySearchTree* b=new BinarySearchTree();
+  int num;
   //stack <int> s;
 
 
@@ -214,7 +257,9 @@ int main()
       case 1:b->root=b->create_tree_NR(b->root);
              break;
 
-      case 2:b->root=b->create_tree_rec(b->root,0,'Y');
+      case 2:cout<<"Enter data:";
+            cin>>num;
+            b->root=b->create_tree_rec_2(b->root,num);
              break;
 
       case 3:b->preorder_traversal(b->root);
