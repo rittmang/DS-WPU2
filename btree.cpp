@@ -1,3 +1,10 @@
+/*
+Name: Ritom Gupta
+Class: S.Y B.Tech CSE-D
+Roll: 203460
+Subject: DS-II
+*/
+
 #include<stack>
 #include<iostream>
 using namespace std;
