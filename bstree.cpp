@@ -81,6 +81,7 @@ public:
             else
             {
               cout<<"Cannot add in BST (Value already exists)!";
+              flag=1;
             }
           }
           //root=temp;
@@ -91,6 +92,19 @@ public:
 
       } while(choice=='Y');
 
+      return root;
+    }
+    Node* create_recursively(Node* root)
+    {
+      char ch;int num;
+      do {
+        cout<<"Enter data:";
+        cin>>num;
+        //Node* temp=create_tree_rec_2(root,num);
+        root=create_tree_rec_2(root,num);
+        cout<<"Continue? Y | N";
+        cin>>ch;
+      } while(ch=='Y');
       return root;
     }
     Node* create_tree_rec_2(Node* root,int key)
@@ -132,71 +146,6 @@ public:
 
       }
     }
-
-    Node* create_tree_rec(Node* root,int key,char ch)
-    {
-      if(ch=='Y'){
-        cout<<"Enter data:";
-        cin>>key;
-        if(root==NULL)
-        {cout<<"Root is NULL\n";
-          Node* current=new Node();
-          //cout<<"\nEnter root data:";
-          //cin>>root->data;
-          current->data=key;
-          current->left=current->right=NULL;
-          char c;
-          cout<<"Continue? Y | N";
-          cin>>c;
-          create_tree_rec(current,key,c);
-        }
-        else{
-
-          if(key < root->data)
-          {
-            Node* curr=new Node();
-            curr->data=key;
-            curr->left=curr->right=NULL;
-            if(root->left==NULL)
-            {root->left=curr;
-
-            char c;
-            cout<<"Continue? Y | N";
-            cin>>c;
-            create_tree_rec(root->left,key,c);
-            }
-            else
-            create_tree_rec(root->left,key,ch);
-
-          }
-
-          else if(key > root->data)
-          {
-            Node* curr=new Node();
-            curr->data=key;
-            curr->left=curr->right=NULL;
-            if(root->right==NULL)
-            {root->right=curr;}
-
-            char c;
-            cout<<"Continue? Y | N";
-            cin>>c;
-            create_tree_rec(root->right,key,c);
-
-          }
-          else
-          {
-            cout<<"Cannot insert another "<<key<<endl;
-          }
-        }
-      }
-      else
-      {
-        return root;
-      }
-      //return root;
-    }
-
 
     void preorder_traversal(Node* root)
     {
@@ -257,9 +206,7 @@ int main()
       case 1:b->root=b->create_tree_NR(b->root);
              break;
 
-      case 2:cout<<"Enter data:";
-            cin>>num;
-            b->root=b->create_tree_rec_2(b->root,num);
+      case 2:b->root=b->create_recursively(b->root);
              break;
 
       case 3:b->preorder_traversal(b->root);
