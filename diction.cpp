@@ -4,7 +4,7 @@ Class: S.Y B.Tech CSE-D
 Roll: 203460
 Subject: DS-II
 */
-//#include<stack>
+#include<stack>//for copy_treeNR()
 #include<string>
 #include<iostream>
 using namespace std;
@@ -27,11 +27,11 @@ public:
 class DictionaryBST
 {
 public:
-    Node* root;
+    Node* root,*parent;
 
     DictionaryBST()
     {
-      root=NULL;
+      root=NULL;parent=NULL;
       //root=new Node();
     }
 
@@ -165,7 +165,6 @@ public:
     Node* delete_word(Node* root,string wordy)
     {
       Node* current=search_word(root,wordy);
-      Node* parent=NULL;
       if(current==root)
       {
         if(current->right==NULL && current->left!=NULL)
@@ -220,6 +219,21 @@ public:
           parent->right=NULL;
         delete current;
       }
+      else if(current->right!=NULL && current->left!=NULL)
+      {
+        Node* temp1=current->right;
+        Node* temp2=current->left;
+        Node* s=temp1;
+        while(s->left!=NULL)
+        {
+          s=s->left;
+        }
+        s->left=temp2;
+        if(current==parent->left)
+          parent->left=temp1;
+        else
+          parent->right=temp1;
+      }
       return root;
 
     }
@@ -233,11 +247,64 @@ public:
         }
         else if(wordy.compare(root->word)<0)
         {
+          this->parent=root;
           return search_word(root->left,wordy);
         }
-        else
+        else{
+          this->parent=root;
           return search_word(root->right,wordy);
+        }
       }
+    }
+    Node* copy_tree(Node* root)
+    {
+      Node* temp=NULL;
+      if(root!=NULL)
+      {
+        temp=new Node();
+        temp->word=root->word;
+        temp->meaning=root->meaning;
+        temp->left=copy_tree(root->left);
+        temp->right=copy_tree(root->right);
+      }
+      return temp;
+    }
+    Node* copy_treeNR(Node* root)
+    {
+      Node* temp1=root;
+      Node* temp2=new Node();
+      stack <Node*> s1;
+      stack <Node*> s2;
+      temp2->data=temp1->data;
+      while(1)
+      {
+        while(temp1!=NULL)
+        {
+          if(temp1->left!=NULL)
+          {
+            temp2->left=new Node();
+            temp2->left->data=temp1->left->data;
+          }
+          if(temp1->right!=NULL)
+          {
+            temp2->right=new Node();
+            temp2->right->data=temp1->right->data;
+          }
+          s1.push(temp1);
+          s2.push(temp2);
+          temp1=temp1->left;
+          temp2=temp2->right;
+        }
+        if(!s1.empty())
+        {
+          temp1=s1.top();s1.pop();
+          temp2=s2.top();s2.pop();
+          temp1=temp1->right;
+          temp2=temp2->right;
+        }
+        if
+      }
+
     }
     void preorder_traversal(Node* root)
     {
@@ -282,6 +349,7 @@ public:
 int main()
 {
   DictionaryBST* b=new DictionaryBST();
+  DictionaryBST* c=new DictionaryBST();
   int num;
   string word="",meaning="";
   //stack <int> s;
@@ -290,7 +358,7 @@ int main()
   int choice;
   do {
     cout<<"\n___________________________________";
-    cout<<"\n0. Exit\n1. Create Dictionary (Non Recursive)\n2. Create Dictionary (Recursive) (Whacko)\n3. Insert word in dictionary\n4. Display Preorder (Recursive)\n5. Display Inorder (Recursive)\n6. Display Postorder (Recursive)\n7. Delete a word\n8. Erase tree (Recursive)\n"<<endl;
+    cout<<"\n0. Exit\n1. Create Dictionary (Non Recursive)\n2. Create Dictionary (Recursive) (Whacko)\n3. Insert word in dictionary\n4. Display Preorder (Recursive)\n5. Display Inorder (Recursive)\n6. Display Postorder (Recursive)\n7. Delete a word\n8. Erase tree (Recursive)\n9.Copy tree (Recursive)\n10. Copy tree (Non-recursive)"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -326,6 +394,10 @@ int main()
       case 8:b->erase_tree(b->root);
             b->root=NULL;
             break;
+
+      case 9:c->root=b->copy_tree(b->root);
+             b=c;
+             break;
     }
   } while(choice!=0);
 
