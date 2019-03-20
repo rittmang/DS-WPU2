@@ -162,9 +162,10 @@ public:
       }
     }
 
-    void delete_word(Node* root,string wordy)
+    Node* delete_word(Node* root,string wordy)
     {
       Node* current=search_word(root,wordy);
+      Node* parent=NULL;
       if(current==root)
       {
         if(current->right==NULL && current->left!=NULL)
@@ -189,7 +190,37 @@ public:
           delete current;
 
         }
+        else
+          {delete current;root=NULL;}
       }
+      else if(current->left==NULL && current->right!=NULL)
+      {
+          if(current==parent->right)
+            parent->right=current->right;
+          else
+            parent->left=current->right;
+
+          current->left=current->right=NULL;
+          delete current;
+      }
+      else if(current->left!=NULL && current->right==NULL)
+      {
+        if(current==parent->left)
+          parent->left=current->left;
+        else
+          parent->right=current->left;
+        current->left=current->right=NULL;
+        delete current;
+      }
+      else if(current->left==NULL && current->right==NULL)
+      {
+        if(current==parent->left)
+          parent->left=NULL;
+        else
+          parent->right=NULL;
+        delete current;
+      }
+      return root;
 
     }
     Node* search_word(Node* root,string wordy)
@@ -289,7 +320,7 @@ int main()
 
       case 7:cout<<"\nEnter word:";
              cin>>word;
-             b->delete_word(b->root,word);
+             b->root=b->delete_word(b->root,word);
              break;
 
       case 8:b->erase_tree(b->root);
