@@ -100,13 +100,12 @@ public:
 
   	while(current1 != this->H && current2 != p2->H)
   	{
-
-  		if(current1->exp < current2->exp)
+      if(current1->exp < current2->exp)
   		{
   			p3->insert(current1->exp,current1->coeff);
   			current1=current1->next;
   		}
-  		if(current1->exp > current2->exp)//signs inverted < & >
+  		else if(current1->exp > current2->exp)//signs inverted < & >
   		{
   			p3->insert(current2->exp,current2->coeff);
   			current2=current2->next;
