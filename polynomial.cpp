@@ -134,6 +134,55 @@ public:
   	return p3;
 
  }
+ void insert2(int exp1,double coeff1)
+ {
+   Node* current=H;
+   Node* nn=new Node();
+   nn->coeff=coeff1;
+   nn->exp=exp1;
+
+   while(current->next!=H && current->next->exp < nn->exp)
+     {current=current->next;}
+
+   if(current->next->exp==nn->exp)
+   {
+     current->next->coeff+=nn->coeff;
+   }
+   else
+   {
+     Node *temp=current;
+     current=current->next;
+     temp->next=nn;
+     nn->next=current;
+  }
+}
+
+ Polynomial* multiply(Polynomial *p2)
+ {
+  	Polynomial* p3=new Polynomial();
+
+  	Node* current1=this->H;
+  	current1=current1->next;
+
+  //	Node* current2=p2->H;
+  //	current2=current2->next;
+
+    while(current1!=this->H)
+    {
+      Node* current2=p2->H;
+    	current2=current2->next;
+      while(current2!=p2->H)
+      {
+        p3->insert2(current1->exp+current2->exp,current1->coeff*current2->coeff);
+        current2=current2->next;
+        cout<<"In inner loop"<<endl;
+      }
+      current1=current1->next;
+      cout<<"In outer loop"<<endl;
+    }
+    return p3;
+
+ }
 
  void create()
   {
@@ -178,7 +227,7 @@ int main()
   	cin>>nopoly;
   	if(nopoly==0)break;
 
-  	cout<<"******MENU*******\n1. Create Polynomial\n2. Display Polynomial\n3. Add Polynomial\n4. Evaluate Polynomial\n";
+  	cout<<"******MENU*******\n1. Create Polynomial\n2. Display Polynomial\n3. Add Polynomial\n4. Evaluate Polynomial\n5. Multiply Polynomial\n";
   	cin>>choice;
 
   	if(nopoly==1)
@@ -197,6 +246,10 @@ int main()
 
   			case 4: p1->evaluate();
   				break;
+
+        case 5: p3=p1->multiply(p2);
+                p3->display();
+                break;
   		}
   	}
   	if(nopoly==2)
@@ -215,6 +268,10 @@ int main()
 
   			case 4: p2->evaluate();
   				break;
+
+        case 5: p3=p2->multiply(p1);
+                p3->display();
+                break;
   		}
   	}
 
