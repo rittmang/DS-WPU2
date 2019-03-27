@@ -5,8 +5,10 @@ Roll: 203460
 Subject: DS-II
 */
 #include<stack>//for copy_treeNR()
+#include<queue>
 #include<string>
 #include<iostream>
+#include<algorithm>
 using namespace std;
 
 class Node
@@ -34,7 +36,6 @@ public:
       root=NULL;parent=NULL;
       //root=new Node();
     }
-
 
     Node* create_tree_NR(Node* root)
     {
@@ -256,6 +257,11 @@ public:
         }
       }
     }
+    int height(Node* root)
+    {
+      if(root==NULL)return 0;
+      return max(height(root->left),height(root->right))+1;
+    }
     Node* copy_tree(Node* root)
     {
       Node* temp=NULL;
@@ -271,11 +277,17 @@ public:
     }
     Node* copy_treeNR(Node* root)
     {
+      cout<<"Method entered";
       Node* temp1=root;
       Node* temp2=new Node();
+
+
       stack <Node*> s1;
       stack <Node*> s2;
-      temp2->data=temp1->data;
+      temp2->word=temp1->word;
+      temp2->meaning=temp1->meaning;
+      Node* newroot=temp2;
+
       while(1)
       {
         while(temp1!=NULL)
@@ -283,12 +295,14 @@ public:
           if(temp1->left!=NULL)
           {
             temp2->left=new Node();
-            temp2->left->data=temp1->left->data;
+            temp2->left->word=temp1->left->word;
+            temp2->left->meaning=temp1->left->meaning;
           }
           if(temp1->right!=NULL)
           {
             temp2->right=new Node();
-            temp2->right->data=temp1->right->data;
+            temp2->right->word=temp1->right->word;
+            temp2->right->meaning=temp1->right->meaning;
           }
           s1.push(temp1);
           s2.push(temp2);
@@ -302,9 +316,11 @@ public:
           temp1=temp1->right;
           temp2=temp2->right;
         }
-        if
+        if(s1.empty())break;
       }
 
+      return newroot;
+      //cout<<"Method done";
     }
     void preorder_traversal(Node* root)
     {
@@ -315,8 +331,6 @@ public:
         preorder_traversal(root->right);
       }
     }
-
-
     void inorder_traversal(Node* root)
     {
       if(root!=NULL)
@@ -345,12 +359,46 @@ public:
       delete root;
     }
 
+    void mirror_image(Node* root)
+    {
+      if(root!=NULL)
+      {
+        Node* temp=root->left;
+        root->left=root->right;
+        root->right=temp;
+
+        if(root->left!=NULL)
+          mirror_image(root->left);
+        if(root->right!=NULL)
+          mirror_image(root->right);
+
+      }
+    }
+    void mirror_image_NR(Node* root)
+    {
+      Node* temp=root;
+      queue <Node*> q;
+      q.push(temp);
+
+      while(!q.empty())
+      {
+        temp=q.front();q.pop();
+        Node* swapper=temp->left;
+        temp->left=temp->right;
+        temp->right=swapper;
+
+        if(temp->left!=NULL)
+          q.push(temp->left);
+        if(temp->right!=NULL)
+          q.push(temp->right);
+      }
+    }
 };
 int main()
 {
   DictionaryBST* b=new DictionaryBST();
   DictionaryBST* c=new DictionaryBST();
-  int num;
+  int num,h;
   string word="",meaning="";
   //stack <int> s;
 
@@ -358,7 +406,7 @@ int main()
   int choice;
   do {
     cout<<"\n___________________________________";
-    cout<<"\n0. Exit\n1. Create Dictionary (Non Recursive)\n2. Create Dictionary (Recursive) (Whacko)\n3. Insert word in dictionary\n4. Display Preorder (Recursive)\n5. Display Inorder (Recursive)\n6. Display Postorder (Recursive)\n7. Delete a word\n8. Erase tree (Recursive)\n9.Copy tree (Recursive)\n10. Copy tree (Non-recursive)"<<endl;
+    cout<<"\n0. Exit\n1. Create Dictionary (Non Recursive)\n2. Create Dictionary (Recursive) (Whacko)\n3. Insert word in dictionary\n4. Display Preorder (Recursive)\n5. Display Inorder (Recursive)\n6. Display Postorder (Recursive)\n7. Delete a word\n8. Erase tree (Recursive)\n9.Copy tree (Recursive)\n10. Copy tree (Non-recursive)\n11. Height of tree\n12. Mirror Tree\n13. Mirror Tree (Non-recursive)"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -398,6 +446,22 @@ int main()
       case 9:c->root=b->copy_tree(b->root);
              b=c;
              break;
+
+      case 10:c->root=b->copy_treeNR(b->root);
+              b=c;
+              break;
+
+      case 11:cout<<"Height of tree:";
+              h=b->height(b->root);
+              cout<<h<<endl;
+              break;
+
+      case 12:b->mirror_image(b->root);
+              break;
+
+      case 13:b->mirror_image_NR(b->root);
+              break;
+
     }
   } while(choice!=0);
 
