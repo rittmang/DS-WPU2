@@ -349,7 +349,6 @@ public:
         cout<<"Word:"<<root->word<<", Meaning:"<<root->meaning<<endl;
       }
     }
-
     void erase_tree(Node* root)
     {
       if(root==NULL)return;
@@ -358,7 +357,6 @@ public:
       cout<<"Deleting "<<root->word<<endl;
       delete root;
     }
-
     void mirror_image(Node* root)
     {
       if(root!=NULL)
