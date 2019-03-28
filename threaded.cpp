@@ -32,6 +32,7 @@ public:
     cin>>root->data;
     head->left=root;
     head->lbit=0;
+    head->rbit=0;
     char choice='Y';
 
 
@@ -109,7 +110,7 @@ public:
   }
   void inorder_TBT()
   {
-    Node* temp=head->left;
+    Node* temp=head;
   //  while(temp->lbit!=0)
     //  temp=temp->left;
 
