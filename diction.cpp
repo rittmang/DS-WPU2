@@ -277,7 +277,6 @@ public:
     }
     Node* copy_treeNR(Node* root)
     {
-      cout<<"Method entered";
       Node* temp1=root;
       Node* temp2=new Node();
 
@@ -307,7 +306,7 @@ public:
           s1.push(temp1);
           s2.push(temp2);
           temp1=temp1->left;
-          temp2=temp2->right;
+          temp2=temp2->left;//changed from temp2->right;
         }
         if(!s1.empty())
         {
@@ -320,7 +319,7 @@ public:
       }
 
       return newroot;
-      //cout<<"Method done";
+      
     }
     void preorder_traversal(Node* root)
     {
@@ -347,6 +346,26 @@ public:
         preorder_traversal(root->left);
         preorder_traversal(root->right);
         cout<<"Word:"<<root->word<<", Meaning:"<<root->meaning<<endl;
+      }
+    }
+    void breadthfirst_traversal(Node* root)//same code as mirror_image_NR()
+    {
+      Node* temp=root;
+      queue <Node*> q;
+      q.push(temp);
+
+      while(!q.empty())
+      {
+        temp=q.front();q.pop();
+        cout<<"Word:"<<temp->word<<"Meaning:"<<temp->meaning<<endl;
+        //Node* swapper=temp->left;
+        //temp->left=temp->right;
+        //temp->right=swapper;
+
+        if(temp->left!=NULL)
+          q.push(temp->left);
+        if(temp->right!=NULL)
+          q.push(temp->right);
       }
     }
     void erase_tree(Node* root)
@@ -404,7 +423,7 @@ int main()
   int choice;
   do {
     cout<<"\n___________________________________";
-    cout<<"\n0. Exit\n1. Create Dictionary (Non Recursive)\n2. Create Dictionary (Recursive) (Whacko)\n3. Insert word in dictionary\n4. Display Preorder (Recursive)\n5. Display Inorder (Recursive)\n6. Display Postorder (Recursive)\n7. Delete a word\n8. Erase tree (Recursive)\n9.Copy tree (Recursive)\n10. Copy tree (Non-recursive)\n11. Height of tree\n12. Mirror Tree\n13. Mirror Tree (Non-recursive)"<<endl;
+    cout<<"\n0. Exit\n1. Create Dictionary (Non Recursive)\n2. Create Dictionary (Recursive) (Whacko)\n3. Insert word in dictionary\n4. Display Preorder (Recursive)\n5. Display Inorder (Recursive)\n6. Display Postorder (Recursive)\n7. Delete a word\n8. Erase tree (Recursive)\n9.Copy tree (Recursive)\n10. Copy tree (Non-recursive)\n11. Height of tree\n12. Mirror Tree\n13. Mirror Tree (Non-recursive)\n14. Breadth First Traverse (Non-recursive)\n"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -458,6 +477,9 @@ int main()
               break;
 
       case 13:b->mirror_image_NR(b->root);
+              break;
+
+      case 14:b->breadthfirst_traversal(b->root);
               break;
 
     }
