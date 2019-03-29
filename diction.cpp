@@ -193,6 +193,7 @@ public:
         else
           {delete current;root=NULL;}
       }
+
       else if(current->left==NULL && current->right!=NULL)
       {
           if(current==parent->right)
@@ -203,6 +204,7 @@ public:
           current->left=current->right=NULL;
           delete current;
       }
+
       else if(current->left!=NULL && current->right==NULL)
       {
         if(current==parent->left)
@@ -234,6 +236,7 @@ public:
           parent->left=temp1;
         else
           parent->right=temp1;
+        delete current;
       }
       return root;
 
@@ -319,7 +322,7 @@ public:
       }
 
       return newroot;
-      
+
     }
     void preorder_traversal(Node* root)
     {
@@ -348,7 +351,8 @@ public:
         cout<<"Word:"<<root->word<<", Meaning:"<<root->meaning<<endl;
       }
     }
-    void breadthfirst_traversal(Node* root)//same code as mirror_image_NR()
+
+    void BFT_NR(Node* root)//same code as mirror_image_NR()
     {
       Node* temp=root;
       queue <Node*> q;
@@ -423,7 +427,7 @@ int main()
   int choice;
   do {
     cout<<"\n___________________________________";
-    cout<<"\n0. Exit\n1. Create Dictionary (Non Recursive)\n2. Create Dictionary (Recursive) (Whacko)\n3. Insert word in dictionary\n4. Display Preorder (Recursive)\n5. Display Inorder (Recursive)\n6. Display Postorder (Recursive)\n7. Delete a word\n8. Erase tree (Recursive)\n9.Copy tree (Recursive)\n10. Copy tree (Non-recursive)\n11. Height of tree\n12. Mirror Tree\n13. Mirror Tree (Non-recursive)\n14. Breadth First Traverse (Non-recursive)\n"<<endl;
+    cout<<"\n0. Exit\n1. Create Dictionary (Non Recursive)\n2. Create Dictionary (Recursive) (Whacko)\n3. Insert word in dictionary\n4. Display Preorder (Recursive)\n5. Display Inorder (Recursive)\n6. Display Postorder (Recursive)\n7. Delete a word\n8. Erase tree (Recursive)\n9.Copy tree (Recursive)\n10. Copy tree (Non-recursive)\n11. Height of tree\n12. Mirror Tree\n13. Mirror Tree (Non-recursive)\n14. Breadth First Traverse (Non-recursive)"<<endl;
     cin>>choice;
     switch(choice)
     {
@@ -479,7 +483,7 @@ int main()
       case 13:b->mirror_image_NR(b->root);
               break;
 
-      case 14:b->breadthfirst_traversal(b->root);
+      case 14:b->BFT_NR(b->root);
               break;
 
     }
