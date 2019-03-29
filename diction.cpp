@@ -4,8 +4,8 @@ Class: S.Y B.Tech CSE-D
 Roll: 203460
 Subject: DS-II
 */
-#include<stack>//for copy_treeNR()
-#include<queue>
+#include<stack>//for copy_treeNR(), yes
+#include<queue>//for another method
 #include<string>
 #include<iostream>
 #include<algorithm>
