@@ -1,4 +1,3 @@
-
 #include<iostream>
 using namespace std;
 class Node
@@ -26,11 +25,12 @@ public:
   }
   void create_TBT()
   {
-    head=new Node();head->right=head;
+    head=new Node();
     root=new Node();
     cout<<"Enter Root char data:";
     cin>>root->data;
-    head->left=root;
+    head->right=head;head->left=root;
+
     head->lbit=0;
     head->rbit=0;
     char choice='Y';
@@ -55,8 +55,8 @@ public:
         {
           if(temp->lbit==1)
           {
-            current->left=temp->left;
-            current->right=temp;
+            current->left=temp->left;//for redirecting current's left to head
+            current->right=temp;//redirect current's right to inorder successor, temp
             temp->left=current;
             temp->lbit=0;
             flag=1;
@@ -136,12 +136,24 @@ public:
 int main()
 {
   ThreadedBT* b=new ThreadedBT();
-  b->create_TBT();
-  cout<<"Preorder:\n";
-  b->preorder_TBT();
-  cout<<"Inorder:\n";
-  b->inorder_TBT();
+  int choice;
+  do{
+    cout<<"0. Exit\n1. Create Threaded Binary Tree\n2. Preorder Sequence\n3. Inorder Sequence\n";
+    cin>>choice;
+    switch(choice)
+    {
+      case 1: cout<<"Create Tree:\n";
+              b->create_TBT();
+              break;
+      case 2:cout<<"Preorder:\n";
+             b->preorder_TBT();
+             break;
+      case 3:cout<<"Inorder:\n";
+             b->inorder_TBT();
+             break;
+    }
 
+  }while(choice!=0);
 
 
   return 0;
