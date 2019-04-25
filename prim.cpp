@@ -30,6 +30,7 @@ public:
     {
       for(int j=0;j<noofvertices;j++)
       {
+      if(mat[i][j]==INT_MAX){
         cout<<"Is "<<i<<" a neighbour of "<<j<<"?";
 
         char ch;
@@ -41,6 +42,7 @@ public:
           cin>>mat[i][j];
           mat[j][i]=mat[i][j];
         }
+      }
       }
     }
   }
@@ -56,11 +58,55 @@ public:
       cout<<endl;
     }
   }
+  int primKaro()
+  {
+    int stv;
+    cout<<"Enter starting vertex:";
+    cin>>stv;
+    int mincost=0;
+    int t[noofvertices][2];
+    int nearest[noofvertices];
+    nearest[stv]=-1;
+
+    for(int i=0;i<noofvertices;i++)
+    {
+      if(i!=stv)
+        nearest[i]=stv;
+    }
+    int r=0;
+    int min;
+    for(int i=0;i<noofvertices;i++)
+    {
+      min=INT_MAX;
+      int j;
+      for(int k=0;k<noofvertices;k++)
+      {
+
+        if(nearest[k]!=-1 && mat[k][nearest[k]]<min)
+        {
+          j=k;
+          min=mat[k][nearest[k]];
+        }
+      }
+      t[r][0]=j;
+      t[r][1]=nearest[j];
+      r=r+1;
+      mincost=mincost+mat[j][nearest[j]];
+      nearest[j]=-1;
+      for(int k=0;k<noofvertices;k++)
+      {
+        if(nearest[k]!=-1 && mat[k][nearest[k]] > mat[k][j])
+          nearest[k]=j;
+      }
+    }
+    return mincost;
+  }
 };
 int main()
 {
   GraphPrim g;
   g.create_adjMat();
   g.display_adjMat();
+  cout<<"MST Value:"<<g.primKaro();
   return 0;
 }
