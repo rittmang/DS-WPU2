@@ -1,18 +1,20 @@
 #include<iostream>
 #include<string>
-#define max 20
+#define max 10
 using namespace std;
+
 class student
 {
+public:
   int rollno;
   string name;
   char grade;
-public:
+
   student()
   {
       rollno=-1;
-      name="";
-      grade='';
+      name="---";
+      grade='&';
   }
 };
 class hashing
@@ -21,7 +23,10 @@ class hashing
 public:
   void display()
   {
-
+    for(int i=0;i<max;i++)
+    {
+      cout<<hash_table[i].rollno<<"\t"<<hash_table[i].name<<"\t"<<hash_table[i].grade<<endl;
+    }
   }
   void lin_probing_Repl()
   {
@@ -29,25 +34,35 @@ public:
   }
   void lin_probing_noRepl()
   {
-    student ob=new student();
+    student ob;char ch;
     do{
+       display();
+       int flag=0;
        cout<<"Enter roll number, name, and grade:\n";
        cin>>ob.rollno;
        cin.ignore();
        getline(cin,ob.name);
+       cin>>ob.grade;
 
        int loc = ob.rollno%max;
 
        if(hash_table[loc].rollno==-1)
-        hash_table[loc]=ob;
+       {
+         hash_table[loc].rollno=ob.rollno;
+         hash_table[loc].name=ob.name;
+         hash_table[loc].grade=ob.grade;
+
+       }
 
        else
        {
-         for(int i=loc+1;i!=loc;i=(i+1)%max)
+         for(int i=(loc+1)%max;i!=loc;i=(i+1)%max)
          {
            if(hash_table[i].rollno==-1)
            {
-             hash_table[i]=ob;
+             hash_table[i].rollno=ob.rollno;
+             hash_table[i].name=ob.name;
+             hash_table[i].grade=ob.grade;
              break;
            }
            else
@@ -56,7 +71,13 @@ public:
        }
        if(flag==1)
         cout<<"Hash full.";
-
-    }
+    cout<<"Continue? y | n:";
+    cin>>ch;
+    }while(ch=='y');
   }
 };
+int main()
+{
+  hashing ob;
+  ob.lin_probing_noRepl();
+}
