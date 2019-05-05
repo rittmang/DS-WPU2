@@ -53,12 +53,15 @@ public:
     {
       for(int j=0;j<noofvertices;j++)
       {
-        cout<<mat[i][j]<<"\t";
+        if(mat[i][j]!=INT_MAX)
+          cout<<mat[i][j]<<"\t";
+        else
+          cout<<"*\t";
       }
       cout<<endl;
     }
   }
-  int primKaro()
+  void prim()
   {
     int stv;
     cout<<"Enter starting vertex:";
@@ -75,7 +78,7 @@ public:
     }
     int r=0;
     int min;
-    for(int i=0;i<noofvertices;i++)
+    for(int i=1;i<noofvertices;i++)
     {
       min=INT_MAX;
       int j;
@@ -99,7 +102,7 @@ public:
           nearest[k]=j;
       }
     }
-    return mincost;
+    cout<<"MST Value:"<<mincost<<"\n";
   }
 };
 int main()
@@ -107,6 +110,6 @@ int main()
   GraphPrim g;
   g.create_adjMat();
   g.display_adjMat();
-  cout<<"MST Value:"<<g.primKaro();
+  g.prim();
   return 0;
 }
