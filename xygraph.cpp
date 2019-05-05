@@ -1,6 +1,9 @@
+//./a.out < input_opplexico.txt for DFT
+//./a.out < input_lexico.txt for BFT
 #include<iostream>
 #include<string>
 #include<queue>
+#include<stack>
 using namespace std;
 
 class GNode
@@ -107,6 +110,38 @@ public:
       temp=temp->next;
     }
   }
+  void DFS_NonRecur(GNode* start)
+  {//to maintain alphabetic order in choosing neighbour, input has bigger to smaller lexico-order
+    stack <GNode*> s;
+
+    int visited[noofvertices];
+    for(int i=0;i<noofvertices;i++)
+    {
+      visited[i]=0;
+    }
+
+    s.push(start);
+  //  visited[get_vertexID(start)]=1;
+    while(!s.empty())
+    {
+      start=s.top();s.pop();
+      int id=get_vertexID(start);
+      visited[id]=1;
+      cout<<"\n"<<start->name<<",";
+      int i=0;
+      for(GNode* temp=head[get_vertexID(start)];temp!=NULL;temp=temp->next)
+      {
+
+        if(!visited[get_vertexID(temp)])
+        {
+          //cout<<"("<<temp->name<<")";
+          visited[get_vertexID(temp)]=1;
+          s.push(temp);
+        }
+        i++;
+      }
+    }
+  }
   void BFS_display(GNode* start)
   {
     queue <GNode*> q;
@@ -118,23 +153,23 @@ public:
     }
 
     q.push(start);
-    while(!q.empty())
+    do
     {
       start=q.front();q.pop();
       int id=get_vertexID(start);
       visited[id]=1;
       cout<<start->name<<",";
       int i=0;
-      for(GNode* temp=head[i];temp!=NULL;temp=temp->next)
+      for(GNode* temp=head[get_vertexID(start)];temp!=NULL;temp=temp->next)
       {
-        if(!visited[i])
+        if(!visited[get_vertexID(temp)])
         {
-          visited[i]=1;
+          visited[get_vertexID(temp)]=1;
           q.push(temp);
         }
         i++;
       }
-    }
+    }while(!q.empty());
   }
   int get_vertexID(GNode* temp)
   {
@@ -170,9 +205,37 @@ int main()
 {
   Graph* g=new Graph();
   g->create_adjList();
-  g->normal_display();
-  g->BFS_display(g->head[0]);
+  //g->normal_display();
+  cout<<"1. Depth First Traversal Recursive\t2. Depth First Traversal Non-Recursive\t3. Breadth First Traversal\n";
+  int ch;GNode* start=new GNode();
+  cin>>ch;
+  switch(ch)
+  {
+    case 1: cout<<"Enter starting vertex:";
+            cin>>start->name;
+            if(g->search_adjList(start)==true)
+              g->DFS_Recur(g->head[g->get_vertexID(start)]);
+            else
+              cout<<"Vertex does not exist";
+            //break;
+
+    case 2: cout<<"Enter starting vertex:";
+            cin>>start->name;
+            if(g->search_adjList(start)==true)
+              g->DFS_NonRecur(g->head[g->get_vertexID(start)]);
+            else
+              cout<<"Vertex does not exist";
+            //break;
+
+
+    case 3: cout<<"Enter starting vertex:";
+            cin>>start->name;
+            if(g->search_adjList(start)==true)
+              g->BFS_display(g->head[g->get_vertexID(start)]);
+            else
+              cout<<"Vertex does not exist";
+            break;
+  }
   cout<<endl;
-  g->DFS_Recur(g->head[0]);
 
 }
