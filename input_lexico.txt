@@ -1,0 +1,11 @@
+8
+a b c d e f g h
+b N
+I N
+I N
+c Y e Y f N
+g N
+c N
+d Y h N
+a Y b N
+1 d d d
