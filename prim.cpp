@@ -68,7 +68,7 @@ public:
     cin>>stv;
     int mincost=0;
     int t[noofvertices][2];
-    int nearest[noofvertices];
+    int nearest[noofvertices];//store -1 if visited, store previous node of current
     nearest[stv]=-1;
 
     for(int i=0;i<noofvertices;i++)
@@ -78,7 +78,7 @@ public:
     }
     int r=0;
     int min;
-    for(int i=1;i<noofvertices;i++)
+    for(int i=1;i<noofvertices;i++)//i=0 till n-1 ?//choose ith minimum cost edge
     {
       min=INT_MAX;
       int j;
@@ -96,7 +96,7 @@ public:
       r=r+1;
       mincost=mincost+mat[j][nearest[j]];
       nearest[j]=-1;
-      for(int k=0;k<noofvertices;k++)
+      for(int k=0;k<noofvertices;k++)//find minimum cost edge
       {
         if(nearest[k]!=-1 && mat[k][nearest[k]] > mat[k][j])
           nearest[k]=j;
