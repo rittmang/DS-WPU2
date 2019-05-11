@@ -1,0 +1,2 @@
+Read marks obtained by SY students in an online examination of particular subject. Find out max and min marks obtained in that subject.
+Use heap data structure.
