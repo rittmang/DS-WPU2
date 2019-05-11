@@ -1,11 +1,11 @@
+#define MAX 100
 /*
 Name: Ritom Gupta
 Class: S.Y B.Tech CSE-D
 Roll: 203460
 Subject: DS-II
 */
-#include<stack>//for copy_treeNR(), yes
-#include<queue>//for another method
+
 #include<string>
 #include<iostream>
 #include<algorithm>
@@ -23,6 +23,76 @@ public:
     word="";meaning="";
     left=NULL;
     right=NULL;
+  }
+};
+class stack
+{
+  Node* n[MAX];
+  int topp;
+public:
+  stack()
+  {
+    topp=-1;
+  }
+  void push(Node* a)
+  {
+    if(topp==MAX-1)
+      {printf("OVERFLOW");return;}
+    n[++topp]=a;
+  }
+  Node* pop()
+  {
+    if(topp==-1)
+      return NULL;
+
+    return n[topp--];
+  }
+  Node* top()
+  {
+    return n[topp];
+  }
+  bool empty()
+  {
+    return topp==-1;
+  }
+};
+class queue
+{
+  Node* n[MAX];
+  int f,r;
+public:
+  queue()
+  {
+    f=-1;r=-1;
+  }
+  void push(Node* a)
+  {
+    if(r==MAX-1)
+      {printf("Queue Overflow\n\n");return;}
+
+    if(f==-1)
+      f=f+1;
+
+    n[++r]=a;
+  }
+  Node* pop()
+  {
+    if(f==-1 || r==-1 || f>r)
+      {printf("Queue Underflow");return NULL;}
+    else
+    {
+      Node* val=n[f++];
+      if(f==r+1){f=-1;r=-1;}
+      return val;
+    }
+  }
+  Node* front()
+  {
+    return n[f];
+  }
+  bool empty()
+  {
+    return f==-1;
   }
 };
 
@@ -284,8 +354,8 @@ public:
       Node* temp2=new Node();
 
 
-      stack <Node*> s1;
-      stack <Node*> s2;
+      stack s1=stack();
+      stack s2=stack();
       temp2->word=temp1->word;
       temp2->meaning=temp1->meaning;
       Node* newroot=temp2;
@@ -355,12 +425,12 @@ public:
     void BFT_NR(Node* root)//same code as mirror_image_NR()
     {
       Node* temp=root;
-      queue <Node*> q;
+      queue q=queue();
       q.push(temp);
 
       while(!q.empty())
       {
-        temp=q.front();q.pop();
+        temp=q.pop();
         cout<<"Word:"<<temp->word<<"Meaning:"<<temp->meaning<<endl;
         //Node* swapper=temp->left;
         //temp->left=temp->right;
@@ -398,12 +468,12 @@ public:
     void mirror_image_NR(Node* root)
     {
       Node* temp=root;
-      queue <Node*> q;
+      queue q=queue();
       q.push(temp);
 
       while(!q.empty())
       {
-        temp=q.front();q.pop();
+        temp=q.pop();
         Node* swapper=temp->left;
         temp->left=temp->right;
         temp->right=swapper;
