@@ -5,8 +5,6 @@ Class: S.Y B.Tech CSE-D
 Roll: 203460
 Subject: DS-II
 */
-
-
 #include<iostream>
 using namespace std;
 
@@ -333,7 +331,7 @@ public:
 int main()
 {
   BinaryTree* b=new BinaryTree();
-  
+
 
 
   int choice;
