@@ -1,3 +1,4 @@
+#define MAX 100
 /*
 Name: Ritom Gupta
 Class: S.Y B.Tech CSE-D
@@ -5,7 +6,7 @@ Roll: 203460
 Subject: DS-II
 */
 
-#include<stack>
+
 #include<iostream>
 using namespace std;
 
@@ -21,6 +22,37 @@ public:
     data=-999;
     left=NULL;
     right=NULL;
+  }
+};
+class stack
+{
+  Node* n[MAX];
+  int topp;
+public:
+  stack()
+  {
+    topp=-1;
+  }
+  void push(Node* a)
+  {
+    if(topp==MAX-1)
+      {printf("OVERFLOW");return;}
+    n[++topp]=a;
+  }
+  Node* pop()
+  {
+    if(topp==-1)
+      return NULL;
+
+    return n[topp--];
+  }
+  Node* top()
+  {
+    return n[topp];
+  }
+  bool empty()
+  {
+    return topp==-1;
   }
 };
 
@@ -158,7 +190,7 @@ public:
 
     void preorder_traversal_NR(Node* root)
     {
-      stack <Node*> s;
+      stack s=stack();
       Node* temp=root;
       while(1)
       {
@@ -172,8 +204,8 @@ public:
 
         if(!s.empty())
         {
-          temp=s.top();
-          s.pop();
+          temp=s.pop();
+          //s.pop();
         }
         temp=temp->right;
       }
@@ -191,7 +223,7 @@ public:
 
     void inorder_traversal_NR(Node* root)//only print statement location changed
     {
-      stack <Node*> s;
+      stack s=stack();
       Node* temp=root;
       while(1)
       {
@@ -205,9 +237,9 @@ public:
 
         if(!s.empty())
         {
-          temp=s.top();
+          temp=s.pop();
           cout<<temp->data<<"\t";
-          s.pop();
+          //s.pop();
         }
         temp=temp->right;
       }
@@ -224,7 +256,7 @@ public:
     }
     void postorder_traversal_NR(Node* root)
     {
-      stack <Node*> s;
+      stack s=stack();
       Node* temp=root;
       while(1)
       {
@@ -236,16 +268,16 @@ public:
         }
         if(s.top()->right==NULL)
         {
-          temp=s.top();
-          s.pop();
+          temp=s.pop();
+          //s.pop();
           cout<<temp->data<<"\t";
         }
 
         while(!s.empty() && s.top()->right == temp)
         {
-          temp=s.top();
+          temp=s.pop();
           cout<<temp->data<<"\t";
-          s.pop();
+          //s.pop();
         }
         if(s.empty())break;
 
@@ -254,7 +286,7 @@ public:
     }
     void erase_tree_NR(Node* root)
     {
-      stack <Node*> s;
+      stack s=stack();
       Node* temp=root;
       while(1)
       {
@@ -267,9 +299,9 @@ public:
         if(s.top()->right==NULL)
         {
 
-          temp=s.top();
+          temp=s.pop();
           Node* current=temp;
-          s.pop();
+          //s.pop();
 
           cout<<temp->data<<"\t";
           delete current;
@@ -277,10 +309,10 @@ public:
 
         while(!s.empty() && s.top()->right == temp)
         {
-          temp=s.top();
+          temp=s.pop();
           Node* current=temp;
           cout<<temp->data<<"\t";
-          s.pop();
+          //s.pop();
           delete current;
         }
         if(s.empty())break;
@@ -301,7 +333,7 @@ public:
 int main()
 {
   BinaryTree* b=new BinaryTree();
-  //stack <int> s;
+  
 
 
   int choice;
