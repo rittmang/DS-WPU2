@@ -67,7 +67,7 @@ public:
     cout<<"Enter starting vertex:";
     cin>>stv;
     int mincost=0;
-    int t[noofvertices][2];
+    int t[noofvertices][2];//stores edge
     int nearest[noofvertices];//store -1 if visited, store previous node of current
     nearest[stv]=-1;
 
@@ -82,21 +82,21 @@ public:
     {
       min=INT_MAX;
       int j;
-      for(int k=0;k<noofvertices;k++)
+      for(int k=0;k<noofvertices;k++)//find minimum edge
       {
-
-        if(nearest[k]!=-1 && mat[k][nearest[k]]<min)
+        if(nearest[k]!=-1 && mat[k][nearest[k]]<min)//symmetric mat, hence [k][nearest[k]] or [nearest[k]][k]
         {
           j=k;
           min=mat[k][nearest[k]];
         }
       }
-      t[r][0]=j;
-      t[r][1]=nearest[j];
+      //t[r][0]=j;//is d
+      //t[r][1]=nearest[j];//is s
+      cout<<"Minimum edge selected with cost:"<<min<<" from "<<nearest[j]<<" to "<<j<<endl;
       r=r+1;
       mincost=mincost+mat[j][nearest[j]];
-      nearest[j]=-1;
-      for(int k=0;k<noofvertices;k++)//find minimum cost edge
+      nearest[j]=-1;//mark visited
+      for(int k=0;k<noofvertices;k++)
       {
         if(nearest[k]!=-1 && mat[k][nearest[k]] > mat[k][j])
           nearest[k]=j;
