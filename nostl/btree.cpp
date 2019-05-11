@@ -76,7 +76,7 @@ public:
           root=new Node();
           cout<<"\nEnter root data:";
           cin>>root->data;
-          root->left=root->right=NULL;
+          //root->left=root->right=NULL;
         }
         else
         {
@@ -85,7 +85,7 @@ public:
           Node* curr=new Node();
           cout<<"\nEnter data:";
           cin>>curr->data;
-          curr->left=curr->right=NULL;
+          //curr->left=curr->right=NULL;
 
           while(flag!=1)
           {
@@ -331,9 +331,6 @@ public:
 int main()
 {
   BinaryTree* b=new BinaryTree();
-
-
-
   int choice;
   do {
     cout<<"\n___________________________________";
