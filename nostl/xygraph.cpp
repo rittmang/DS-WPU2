@@ -2,8 +2,7 @@
 //./a.out < input_lexico.txt for BFT
 #include<iostream>
 #include<string>
-#include<queue>
-#include<stack>
+#define MAX 100
 using namespace std;
 
 class GNode
@@ -17,6 +16,77 @@ public:
     next=NULL;
   }
 };
+class stack
+{
+  GNode* n[MAX];
+  int topp;
+public:
+  stack()
+  {
+    topp=-1;
+  }
+  void push(GNode* a)
+  {
+    if(topp==MAX-1)
+      {printf("OVERFLOW");return;}
+    n[++topp]=a;
+  }
+  GNode* pop()
+  {
+    if(topp==-1)
+      return NULL;
+
+    return n[topp--];
+  }
+  GNode* top()
+  {
+    return n[topp];
+  }
+  bool empty()
+  {
+    return topp==-1;
+  }
+};
+class queue
+{
+  GNode* n[MAX];
+  int f,r;
+public:
+  queue()
+  {
+    f=-1;r=-1;
+  }
+  void push(GNode* a)
+  {
+    if(r==MAX-1)
+      {printf("Queue Overflow\n\n");return;}
+
+    if(f==-1)
+      f=f+1;
+
+    n[++r]=a;
+  }
+  GNode* pop()
+  {
+    if(f==-1 || r==-1 || f>r)
+      {printf("Queue Underflow");return NULL;}
+    else
+    {
+      GNode* val=n[f++];
+      if(f==r+1){f=-1;r=-1;}
+      return val;
+    }
+  }
+  GNode* front()
+  {
+    return n[f];
+  }
+  bool empty()
+  {
+    return f==-1;
+  }
+};
+
 class Graph
 {
 public:
@@ -112,7 +182,7 @@ public:
   }
   void DFS_NonRecur(GNode* start)
   {//to maintain alphabetic order in choosing neighbour, input has bigger to smaller lexico-order
-    stack <GNode*> s;
+    stack s=stack();
 
     int visited[noofvertices];
     for(int i=0;i<noofvertices;i++)
@@ -124,7 +194,7 @@ public:
   //  visited[get_vertexID(start)]=1;
     while(!s.empty())
     {
-      start=s.top();s.pop();
+      start=s.pop();
       int id=get_vertexID(start);
       visited[id]=1;
       cout<<"\n"<<start->name<<",";
@@ -144,7 +214,7 @@ public:
   }
   void BFS_display(GNode* start)
   {
-    queue <GNode*> q;
+    queue q=queue();
 
     int visited[noofvertices];
     for(int i=0;i<noofvertices;i++)
@@ -155,7 +225,7 @@ public:
     q.push(start);
     do
     {
-      start=q.front();q.pop();
+      start=q.pop();
       int id=get_vertexID(start);
       visited[id]=1;
       cout<<start->name<<",";
@@ -217,7 +287,7 @@ int main()
               g->DFS_Recur(g->head[g->get_vertexID(start)]);
             else
               cout<<"Vertex does not exist";
-            //break;
+            break;
 
     case 2: cout<<"Enter starting vertex:";
             cin>>start->name;
@@ -225,7 +295,7 @@ int main()
               g->DFS_NonRecur(g->head[g->get_vertexID(start)]);
             else
               cout<<"Vertex does not exist";
-            //break;
+            break;
 
 
     case 3: cout<<"Enter starting vertex:";
