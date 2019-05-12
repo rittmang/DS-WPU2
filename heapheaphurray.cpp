@@ -3,7 +3,7 @@
 using namespace std;
 class heap
 {
-  int marks[MAX];
+  int marks[MAX+1];//since marks[0] is never to be used
   int n;
 
 public:
@@ -89,7 +89,7 @@ public:
 };
 int main()
 {
-  heap* ob=new heap();
+  heap* ob=heap();
   //ob->max_heap();
   ob->min_heap();
   return 0;
