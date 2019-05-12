@@ -33,6 +33,7 @@ public:
     } while(j>=1);
 
     disp();
+    cout<<"Maximum marks:"<<marks[1]<<endl;
   }
 
   void insert_max(int i)
@@ -63,6 +64,7 @@ public:
     } while(j>=1);
 
     disp();
+    cout<<"Minimum marks:"<<marks[1]<<endl;
   }
   void insert_min(int i)
   {
@@ -83,6 +85,7 @@ public:
     }
     cout<<"\n";
   }
+
 };
 int main()
 {
