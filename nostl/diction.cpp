@@ -383,8 +383,8 @@ public:
         }
         if(!s1.empty())
         {
-          temp1=s1.top();s1.pop();
-          temp2=s2.top();s2.pop();
+          temp1=s1.pop();
+          temp2=s2.pop();
           temp1=temp1->right;
           temp2=temp2->right;
         }
