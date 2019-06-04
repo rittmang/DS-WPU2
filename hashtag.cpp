@@ -1,6 +1,6 @@
 #include<iostream>
 #include<string>
-#define max 10
+#define max 20
 using namespace std;
 
 class student
