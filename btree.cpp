@@ -136,7 +136,7 @@ public:
         if(root->left!=NULL)
           create_tree_rec(root->left);
       }
-      if(ch=='U')
+      if(ch == 'U')
       {
         create_tree_rec(root);
       }
